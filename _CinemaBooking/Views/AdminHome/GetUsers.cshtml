@@ -1,0 +1,81 @@
+﻿@model List<_CinemaBooking.ViewModels.User_cinemas>
+
+<div class="content">
+    <h2>Список користувачів</h2>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Email</th>
+                <th>Пароль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Password_user</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .content {
+        padding: 20px;
+    }
+
+    .user-table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background-color: #1a1a1a;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .user-table th,
+        .user-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        .user-table th {
+            background-color: #333;
+            color: #FFD700;
+            font-size: 18px;
+        }
+
+        .user-table tbody tr {
+            background-color: #222;
+            color: #fff;
+        }
+
+            .user-table tbody tr:nth-child(even) {
+                background-color: #2b2b2b;
+            }
+
+            .user-table tbody tr:hover {
+                background-color: #444;
+            }
+
+        .user-table td {
+            color: #ddd;
+        }
+
+            .user-table td:hover {
+                color: #FF6347;
+            }
+
+    h2 {
+        color: #FF6347;
+        text-align: center;
+        font-size: 32px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>

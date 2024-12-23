@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CinemaBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="IdAdmin" />
+    </Key>
+    <Property Name="IdAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Password_admin" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Role_admin" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="IdBooking" />
+    </Key>
+    <Property Name="IdBooking" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSession" Type="int" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="IdSeat" Type="int" Nullable="false" />
+    <Property Name="Status_book" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Film">
+    <Key>
+      <PropertyRef Name="IdFilm" />
+    </Key>
+    <Property Name="IdFilm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description_film" Type="varchar" MaxLength="255" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Genre" Type="varchar" MaxLength="100" />
+    <Property Name="Rating" Type="decimal" Precision="3" Scale="1" />
+    <Property Name="IdAdmin" Type="int" Nullable="false" />
+    <Property Name="ImageUrl" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Hall">
+    <Key>
+      <PropertyRef Name="IdHall" />
+    </Key>
+    <Property Name="IdHall" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="RowCount_Hall" Type="int" Nullable="false" />
+    <Property Name="SeatsPerRow" Type="int" Nullable="false" />
+    <Property Name="IdAdmin" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Seat">
+    <Key>
+      <PropertyRef Name="IdSeat" />
+    </Key>
+    <Property Name="IdSeat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RowNumber" Type="int" Nullable="false" />
+    <Property Name="SeatNumber" Type="int" Nullable="false" />
+    <Property Name="IdHall" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="IdSession" />
+    </Key>
+    <Property Name="IdSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Date_session" Type="date" Nullable="false" />
+    <Property Name="IdFilm" Type="int" Nullable="false" />
+    <Property Name="IdHall" Type="int" Nullable="false" />
+    <Property Name="IdAdmin" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_cinema">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Password_user" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Booking__IdSeat__25869641">
+    <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seat">
+        <PropertyRef Name="IdSeat" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="IdSeat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Booking__IdSessi__239E4DCF">
+    <End Role="Session" Type="Self.Session" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="IdSession" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="IdSession" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Booking__IdUser__24927208">
+    <End Role="User_cinema" Type="Self.User_cinema" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_cinema">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Film__IdAdmin__1367E606">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="Film" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="IdAdmin" />
+      </Principal>
+      <Dependent Role="Film">
+        <PropertyRef Name="IdAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Hall__IdAdmin__164452B1">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="Hall" Type="Self.Hall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="IdAdmin" />
+      </Principal>
+      <Dependent Role="Hall">
+        <PropertyRef Name="IdAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Seat__IdHall__1920BF5C">
+    <End Role="Hall" Type="Self.Hall" Multiplicity="1" />
+    <End Role="Seat" Type="Self.Seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hall">
+        <PropertyRef Name="IdHall" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="IdHall" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Session__IdAdmin__20C1E124">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="IdAdmin" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="IdAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Session__IdFilm__1ED998B2">
+    <End Role="Film" Type="Self.Film" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="IdFilm" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="IdFilm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Session__IdHall__1FCDBCEB">
+    <End Role="Hall" Type="Self.Hall" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hall">
+        <PropertyRef Name="IdHall" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="IdHall" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CinemaBookingModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hall" EntityType="Self.Hall" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seat" EntityType="Self.Seat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_cinema" EntityType="Self.User_cinema" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Booking__IdSeat__25869641" Association="Self.FK__Booking__IdSeat__25869641">
+      <End Role="Seat" EntitySet="Seat" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Booking__IdSessi__239E4DCF" Association="Self.FK__Booking__IdSessi__239E4DCF">
+      <End Role="Session" EntitySet="Session" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Booking__IdUser__24927208" Association="Self.FK__Booking__IdUser__24927208">
+      <End Role="User_cinema" EntitySet="User_cinema" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Film__IdAdmin__1367E606" Association="Self.FK__Film__IdAdmin__1367E606">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Film" EntitySet="Film" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Hall__IdAdmin__164452B1" Association="Self.FK__Hall__IdAdmin__164452B1">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Hall" EntitySet="Hall" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Seat__IdHall__1920BF5C" Association="Self.FK__Seat__IdHall__1920BF5C">
+      <End Role="Hall" EntitySet="Hall" />
+      <End Role="Seat" EntitySet="Seat" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Session__IdAdmin__20C1E124" Association="Self.FK__Session__IdAdmin__20C1E124">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Session" EntitySet="Session" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Session__IdFilm__1ED998B2" Association="Self.FK__Session__IdFilm__1ED998B2">
+      <End Role="Film" EntitySet="Film" />
+      <End Role="Session" EntitySet="Session" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Session__IdHall__1FCDBCEB" Association="Self.FK__Session__IdHall__1FCDBCEB">
+      <End Role="Hall" EntitySet="Hall" />
+      <End Role="Session" EntitySet="Session" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,144 @@
+﻿@model IEnumerable<_CinemaBooking.ViewModels.FilmScheduleViewModel>
+
+<div class="container mt-4">
+    <h1>Розклад сеансів</h1>
+
+    @if (!Model.Any())
+    {
+        <p>Сеансів на цю дату не знайдено.</p>
+    }
+    else
+    {
+        <div class="film-grid">
+            @foreach (var film in Model)
+            {
+                <div class="film">
+                    <div class="film-content">
+                        @if (!string.IsNullOrEmpty(film.ImageUrl))
+                        {
+                            <img src="@film.ImageUrl" alt="@film.Title poster" class="film-poster" />
+                        }
+                        <div class="film-details">
+                            <h3>
+                                <a href="@Url.Action("Details", "Home", new { id = film.FilmId })" class="film-title">
+                                    @film.Title
+                                </a>
+                            </h3>
+                            <h4>Сеанси:</h4>
+                            <ul>
+                                @foreach (var session in film.Sessions)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("SelectSeats", "Home", new { sessionId = session.SessionId })" class="session-link">
+                                            Дата: @session.Date.ToShortDateString(), Час: @session.StartTime - @session.EndTime                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        margin: 20px;
+        text-align: center;
+        color: #FF6347;
+        font-size: 38px;
+    }
+
+    .film-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 20px;
+    }
+
+    .film {
+        background: #F2F2F2;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .film:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.75);
+        }
+
+    .film-content {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .film-poster {
+        width: 300px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .film-details {
+        flex-grow: 1;
+    }
+
+    .film-title {
+        font-weight: bold;
+        color: #FF6347;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+    }
+
+        .film-title:hover {
+            color: #0D0D0D;
+            text-decoration: underline;
+        }
+
+    .film-details h4 {
+        margin: 10px 0;
+        color: #FF6347;
+    }
+
+    .film-details ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .film-details ul li {
+            margin-bottom: 5px;
+            color: #0D0D0D;
+        }
+    .session-link {
+        color: #FF6347;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+
+        .session-link:hover {
+            color: #0D0D0D;
+            text-decoration: underline;
+        }
+</style>
+

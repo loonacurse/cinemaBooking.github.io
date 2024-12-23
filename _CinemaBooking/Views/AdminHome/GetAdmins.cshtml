@@ -1,0 +1,79 @@
+﻿@model List<_CinemaBooking.ViewModels.AdminViewModel>
+<div class="content">
+    <h2>Список адміністраторів</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Email</th>
+                <th>Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+                <tr>
+                    <td>@admin.Name</td>
+                    <td>@admin.Email</td>
+                    <td>@admin.Role_admin</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<style>
+    .content {
+        padding: 20px;
+    }
+
+    .admin-table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background-color: #1a1a1a;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        .admin-table th {
+            background-color: #333;
+            color: #FFD700;
+            font-size: 18px;
+        }
+
+        .admin-table tbody tr {
+            background-color: #222;
+            color: #fff;
+        }
+
+            .admin-table tbody tr:nth-child(even) {
+                background-color: #2b2b2b;
+            }
+
+            .admin-table tbody tr:hover {
+                background-color: #444;
+            }
+
+        .admin-table td {
+            color: #ddd;
+        }
+
+            .admin-table td:hover {
+                color: #FF6347;
+            }
+
+    h2 {
+        color: #FF6347;
+        text-align: center;
+        font-size: 32px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>

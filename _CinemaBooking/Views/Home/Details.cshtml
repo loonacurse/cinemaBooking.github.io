@@ -1,0 +1,117 @@
+﻿@model _CinemaBooking.ViewModels.FilmScheduleViewModel
+<div class="container mt-4">
+    <div class="film-info">
+        <!-- Постер фільму -->
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Title poster" class="film-poster" />
+        }
+
+        <!-- Інформація про фільм (збоку від постера) -->
+    <div class="film-details">
+        <h2>@Model.Title</h2>
+        <p><strong>Опис:</strong> @Model.Description</p>
+        <p><strong>Жанр:</strong> @Model.Genre</p>
+        <p><strong>Тривалість:</strong> @Model.Duration</p>
+        <p><strong>Рейтинг:</strong> @Model.Rating</p>
+
+        <h4>Сеанси:</h4>
+        <ul>
+            @foreach (var session in Model.Sessions)
+            {
+                <li>
+                    <a href="@Url.Action("SelectSeats", "Home", new { sessionId = session.SessionId })" class="session-link">
+                        Дата: @session.Date.ToShortDateString(), Час: @session.StartTime - @session.EndTime
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    </div>
+</div>
+
+<!-- Стилі для постера та інформації -->
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 10px;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #FF6347;
+        font-size: 32px;
+    }
+
+    .film-info {
+        background-color: #F2F2F2;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        justify-content: flex-start; /* Відправляє все до лівого краю */
+        align-items: flex-start; /* Вирівнює по вертикалі */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .film-poster {
+        width: 500px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .film-details {
+        max-width: 600px;
+        color: #0D0D0D;
+        font-size: 1.2rem; 
+    }
+
+    .film-title {
+        font-weight: bold;
+        color: #FF6347;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+    }
+    .film-details p {
+        font-size: 1.4rem; /* Збільшити текст для опису та характеристик */
+        margin-bottom: 10px;
+    }
+
+    .film-details h4 {
+        margin: 10px 0;
+        color: #FF6347;
+    }
+
+    .film-details ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .film-details ul li {
+            margin-bottom: 5px;
+            color: #0D0D0D;
+        }
+    .session-link {
+        color: #FF6347;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+
+        .session-link:hover {
+            color: #0D0D0D;
+            text-decoration: underline;
+        }
+</style>

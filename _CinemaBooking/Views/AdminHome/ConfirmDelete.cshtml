@@ -1,0 +1,142 @@
+﻿@model _CinemaBooking.Models.Film
+
+@{
+    ViewBag.Title = "Підтвердження видалення фільму";
+}
+
+
+<div class="container mt-4">
+    <h2>Підтвердження видалення фільму</h2>
+
+    <div class="film">
+        <div class="film-content">
+            <div class="film-poster-container">
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="film-poster" />
+            </div>
+            <div class="film-details">
+                <h3>@Model.Title</h3>
+                <p><strong>Опис:</strong> @Model.Description_film</p>
+                <p><strong>Тривалість:</strong> @Model.Duration</p>
+                <p><strong>Жанр:</strong> @Model.Genre</p>
+                <p><strong>Рейтинг:</strong> @Model.Rating</p>
+            </div>
+        </div>
+    </div>
+
+    <form action="@Url.Action("DeleteFilm", "AdminHome")" method="post">
+        <input type="hidden" name="filmId" value="@Model.IdFilm" />
+        <div class="button-container">
+            <button type="submit" class="btn btn-danger">Так, видалити фільм</button>
+            <a href="@Url.Action("GetFilms", "AdminHome")" class="btn btn-secondary">Скасувати</a>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h2 {
+        margin: 20px;
+        text-align: center;
+        color: #FF6347;
+        font-size: 36px;
+    }
+
+    .film {
+        background: #FFFFFF; 
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+        .film:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.75);
+        }
+
+    .film-content {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .film-poster-container {
+        flex-shrink: 0;
+    }
+
+    .film-poster {
+        width: 200px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .film-details {
+        flex-grow: 1;
+    }
+
+        .film-details h3 {
+            font-weight: bold;
+            color: #FF6347;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .film-details p {
+            color: #0D0D0D;
+        }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-danger {
+        background-color: #FF6347;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 48%;
+        text-align: center;
+    }
+
+        .btn-danger:hover {
+            background-color: #FF4500;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 48%;
+        text-align: center;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+</style>

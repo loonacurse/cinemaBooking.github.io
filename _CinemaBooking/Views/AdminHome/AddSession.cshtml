@@ -1,0 +1,153 @@
+﻿@model _CinemaBooking.ViewModels.SessionViewModel
+@{
+    var successMessage = TempData["Success"] as string;
+    var errorMessage = TempData["Error"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+@{
+    ViewBag.Title = "Додати сеанс";
+}
+
+<div class="container mt-4">
+    <h1>Додати сеанс для фільму: @Model.FilmTitle</h1>
+
+    @using (Html.BeginForm("AddSession", "AdminHome", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.HiddenFor(m => m.FilmId)
+        </div>
+
+        <div class="form-group">
+            <label for="Date" class="control-label">Дата сеансу:</label>
+            @Html.TextBoxFor(m => m.Date, new { @class = "form-control input-field", type = "date" })
+            @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="StartTime" class="control-label">Час початку:</label>
+            @Html.TextBoxFor(m => m.StartTime, new { @class = "form-control input-field", type = "time" })
+            @Html.ValidationMessageFor(m => m.StartTime, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="EndTime" class="control-label">Час закінчення:</label>
+            @Html.TextBoxFor(m => m.EndTime, new { @class = "form-control input-field", type = "time" })
+            @Html.ValidationMessageFor(m => m.EndTime, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="HallId" class="control-label">Виберіть зал:</label>
+            @Html.DropDownListFor(m => m.HallId, Model.Halls, "Оберіть зал", new { @class = "form-control input-field" })
+            @Html.ValidationMessageFor(m => m.HallId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-success">Додати сеанс</button>
+            <a href="@Url.Action("GetFilms", "AdminHome")" class="btn btn-secondary">Назад</a>
+        </div>
+    }
+</div>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    h1 {
+        margin: 20px;
+        text-align: center;
+        color: #FF6347;
+        font-size: 36px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .input-field {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-sizing: border-box;
+        margin: 0 auto;
+        display: block;
+    }
+
+        .input-field:focus {
+            border-color: #FF6347;
+            outline: none;
+        }
+
+    button[type="submit"], .btn-secondary {
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-size: 16px;
+        margin: 20px; 
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .btn-success {
+        background-color: #FF6347;
+        color: white;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #e55347;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px; 
+    }
+</style>

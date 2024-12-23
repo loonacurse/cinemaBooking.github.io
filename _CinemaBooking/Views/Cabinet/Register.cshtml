@@ -1,0 +1,156 @@
+﻿@model _CinemaBooking.ViewModels.User_cinemas
+
+@using (Html.BeginForm("Register", "Cabinet", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <h4 class="page-title">Реєстрація</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+         <label for="Title" class="control-label">Ім'я:</label>
+        <div>
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input-field", placeholder = "Введіть ваше ім'я" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Title" class="control-label">Ваша пошта:</label>
+        <div>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input-field", placeholder = "Введіть ваш e-mail" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Title" class="control-label">Пароль:</label>
+        <div>
+            @Html.PasswordFor(model => model.Password_user, new { @class = "form-control input-field", placeholder = "Введіть ваш пароль" })
+            @Html.ValidationMessageFor(model => model.Password_user, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+        <div class="form-group">
+            <div class="submit-button">
+                <input type="submit" value="Створити акаунт" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+    <div>
+        @Html.ActionLink("Назад", "Login", null, new { @class = "btn-link" })
+    </div>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #FF6347;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: white;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+
+            .input-field:focus {
+                border-color: #FF6347;
+                outline: none;
+                background-color: #444;
+            }
+
+        .btn {
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #FF6347;
+            border: none;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: #e55347;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        .btn-link {
+            color: #FF6347;
+            text-decoration: none;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 15px;
+            background-color: #222;
+            border: none;
+            display: inline-block;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+        }
+
+        .control-label {
+            font-size: 16px;
+            color: #FF6347;
+        }
+    </style>

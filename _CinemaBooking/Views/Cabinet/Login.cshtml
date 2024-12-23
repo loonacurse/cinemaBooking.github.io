@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Вхід";
+}
+
+<div class="container">
+    <h2 class="page-title">Вхід до системи</h2>
+    <hr />
+
+    @using (Html.BeginForm("Login", "Cabinet", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("Email", htmlAttributes: new { @class = "control-label" })
+            @Html.TextBox("email", null, new { @class = "form-control input-field", placeholder = "Введіть ваш email" })
+            @Html.ValidationMessage("email", "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Пароль", htmlAttributes: new { @class = "control-label" })
+            @Html.Password("password", null, new { @class = "form-control input-field", placeholder = "Введіть ваш пароль" })
+            @Html.ValidationMessage("password", "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-submit">Увійти</button>
+        </div>
+
+        if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <div class="form-group">
+            <button type="button" class="btn btn-secondary" onclick="window.location='@Url.Action("LoginAsAdmin", "Cabinet")'">Увійти як адміністратор</button>
+        </div>
+    }
+</div>
+<div class="form-group">
+    <button type="button" class="btn btn-link" onclick="window.location='@Url.Action("Register", "Cabinet")'">Зареєструватися</button>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #222;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+    }
+
+    .control-label {
+        font-size: 16px;
+        color: #FF6347;
+    }
+
+    .page-title {
+        text-align: center;
+        color: #FF6347;
+        font-size: 38px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background-color: #333;
+        color: white;
+        font-size: 18px;
+        box-sizing: border-box;
+    }
+
+        .input-field:focus {
+            border-color: #FF6347;
+            outline: none;
+            background-color: #444;
+        }
+
+    .btn {
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: #FF6347;
+        border: none;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #e55347;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .btn-link {
+        color: #FF6347;
+        text-decoration: none;
+        text-align: center;
+        padding: 15px 20px;
+        font-size: 18px;
+        width: 100%;
+        margin-top: 15px;
+        background-color: #222;
+        border: none; /* Видалено обводку */
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+    .alert {
+        margin-top: 20px;
+    }
+
+    .text-danger {
+        color
+    }
+</style>

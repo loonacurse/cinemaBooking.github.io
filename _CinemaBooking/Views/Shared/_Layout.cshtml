@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="navbar-collapse">
+        <div class="navbar-nav ms-auto d-flex align-items-center" style="width: 100%; display: flex; justify-content: space-between; gap: 15px;">
+            @if (Session["UserId"] != null) // If user is logged in
+            {
+                <span class="navbar-welcome">Вітаю, @Session["UserName"]!</span>
+                <a href="@Url.Action("Index", "Home")" class="nav-link">Розклад сеансів</a>
+                <a href="@Url.Action("Bookings", "Home")" class="nav-link">Мій кабінет</a>
+                <a href="@Url.Action("Logout", "Cabinet")" class="nav-link">Вийти</a>
+            }
+            else if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+            {
+                <span class="navbar-welcome" style="color: #FFD700">Вітаю, @Session["AdminName"], на адмін панелі!</span>
+                <a href="@Url.Action("Index", "Home")" class="nav-link" style="color: #FFD700">Розклад сеансів</a>
+                <a href="@Url.Action("AdminCab", "AdminHome")" class="nav-link" style="color: #FFD700">Адмін кабінет</a>
+                <a href="@Url.Action("Logout", "Cabinet")" class="nav-link" style="color: #FFD700">Вийти</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Index", "Home")" class="nav-link">Розклад сеансів</a>
+                <a href="@Url.Action("Login", "Cabinet")" class="nav-link">Вхід/Реєстрація</a>
+            }
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            @if (Request.Url.AbsolutePath.Contains("AdminCab"))
+            {
+                <div class="col-md-3 sidebar">
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("GetFilms", "AdminHome")"><i class="fa fa-film"></i> Фільм</a>
+                          
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users"></i> Користувачі</a>
+                            <ul>
+                                <li><a href="@Url.Action("GetUsers", "AdminHome")"><i class="fa fa-user"></i> Отримати дані про користувачів</a></li>
+                                <li><a href="@Url.Action("GetAdmins", "AdminHome")"><i class="fa fa-user-shield"></i> Отримати дані про адміністраторів</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <footer>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+
+<style>
+    body {
+        margin: 20px;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .navbar-nav {
+        margin-top: 50px;
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+    }
+
+    .nav-link {
+        color: #FF6347;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .nav-link:hover {
+            background-color: #f1f1f1;
+            color: #0D0D0D;
+        }
+
+    .navbar-welcome {
+        color: #FF6347;
+        margin-right: 15px;
+    }
+
+    .sidebar {
+        background-color: #1e1e1e;
+        color: #FFD700;
+        padding: 20px;
+        border-right: 2px solid #444;
+        height: 100vh;
+        width: 300px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+        transition: width 0.3s ease-in-out;
+    }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+            .sidebar ul li {
+                margin-bottom: 15px;
+                border-bottom: 1px solid #444;
+                padding-bottom: 10px;
+            }
+
+                .sidebar ul li a {
+                    text-decoration: none;
+                    color: #FFD700;
+                    font-weight: bold;
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    transition: all 0.3s ease-in-out;
+                }
+
+                    .sidebar ul li a:hover {
+                        text-decoration: none;
+                        color: #fff;
+                        transform: translateX(8px);
+                    }
+
+                .sidebar ul li ul {
+                    margin-top: 10px;
+                    padding-left: 20px;
+                }
+
+                    .sidebar ul li ul li a {
+                        color: #ccc;
+                        font-size: 18px;
+                        font-weight: normal;
+                    }
+
+                        .sidebar ul li ul li a:hover {
+                            color: #fff;
+                        }
+</style>
