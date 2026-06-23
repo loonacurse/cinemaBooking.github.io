@@ -47,7 +47,7 @@ namespace _CinemaBooking.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoginAsAdmin(string email, string password)
         {
-            var admin = db.Admins
+            var admin = db.Admin
                          .FirstOrDefault(u => u.Email == email && u.Password_admin == password && u.Role_admin == "Admin");
 
             if (admin != null)

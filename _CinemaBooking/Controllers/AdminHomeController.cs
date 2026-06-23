@@ -21,8 +21,8 @@ namespace _CinemaBooking.Controllers
                 TempData["Error"] = "You are not authorized to add films.";
                 return RedirectToAction("Login", "Cabinet");
             }
-            var films = db.Films
-                                .Include(f => f.Sessions) 
+            var films = db.Film
+                                .Include(f => f.Session) 
                                 .ToList();
 
             return View(films); 
@@ -46,7 +46,7 @@ namespace _CinemaBooking.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddFilm(Films model)
+        public ActionResult AddFilm(Film model)
         {
             if (Session["Role"] == null || Session["Role"].ToString() != "Admin")
             {
@@ -75,7 +75,7 @@ namespace _CinemaBooking.Controllers
                         IdAdmin = AdminId
                     };
 
-                    db.Films.Add(film);
+                    db.Film.Add(film);
                     db.SaveChanges();
 
                     TempData["Success"] = "Фільм успішно додано!";
@@ -98,7 +98,7 @@ namespace _CinemaBooking.Controllers
                 TempData["Error"] = "You are not authorized to add films.";
                 return RedirectToAction("Login", "Cabinet");
             }
-            var film = db.Films.FirstOrDefault(f => f.IdFilm == id);
+            var film = db.Film.FirstOrDefault(f => f.IdFilm == id);
 
             if (film == null)
             {
@@ -115,7 +115,7 @@ namespace _CinemaBooking.Controllers
                 TempData["Error"] = "You are not authorized to add films.";
                 return RedirectToAction("Login", "Cabinet");
             }
-            var film = db.Films.FirstOrDefault(f => f.IdFilm == filmId);
+            var film = db.Film.FirstOrDefault(f => f.IdFilm == filmId);
 
             if (film == null)
             {
@@ -124,7 +124,7 @@ namespace _CinemaBooking.Controllers
 
             try
             {
-                db.Films.Remove(film);
+                db.Film.Remove(film);
                 db.SaveChanges();
 
                 TempData["Success"] = "Фільм успішно видалено!";
@@ -143,7 +143,7 @@ namespace _CinemaBooking.Controllers
                 TempData["Error"] = "You are not authorized to add films.";
                 return RedirectToAction("Login", "Cabinet");
             }
-            var film = db.Films.FirstOrDefault(f => f.IdFilm == id);
+            var film = db.Film.FirstOrDefault(f => f.IdFilm == id);
             if (film == null)
             {
                 return HttpNotFound();
@@ -162,7 +162,7 @@ namespace _CinemaBooking.Controllers
             }
             if (ModelState.IsValid)
             {
-                var film = db.Films.FirstOrDefault(f => f.IdFilm == id);
+                var film = db.Film.FirstOrDefault(f => f.IdFilm == id);
                 if (film == null)
                 {
                     return HttpNotFound();
@@ -194,14 +194,14 @@ namespace _CinemaBooking.Controllers
                 TempData["Error"] = "You are not authorized to add films.";
                 return RedirectToAction("Login", "Cabinet");
             }
-            var film = db.Films.FirstOrDefault(f => f.IdFilm == id);
+            var film = db.Film.FirstOrDefault(f => f.IdFilm == id);
             if (film == null)
             {
                 TempData["Error"] = "Фільм не знайдено.";
                 return RedirectToAction("GetFilms");
             }
 
-            var halls = db.Halls.ToList();  
+            var halls = db.Hall.ToList();  
             var model = new SessionViewModel
             {
                 FilmId = film.IdFilm,
@@ -221,14 +221,14 @@ namespace _CinemaBooking.Controllers
             }
             if (!ModelState.IsValid)
             {
-                var halls = db.Halls.ToList();
+                var halls = db.Hall.ToList();
                 model.Halls = new SelectList(halls, "IdHall", "Name");
                 return View(model);
             }
 
             try
             {
-                var film = db.Films.FirstOrDefault(f => f.IdFilm == model.FilmId);
+                var film = db.Film.FirstOrDefault(f => f.IdFilm == model.FilmId);
                 if (film == null)
                 {
                     TempData["Error"] = "Фільм не знайдений.";
@@ -251,7 +251,7 @@ namespace _CinemaBooking.Controllers
                     IdAdmin = (int)Session["AdminId"]
                 };
 
-                db.Sessions.Add(session);
+                db.Session.Add(session);
                 db.SaveChanges();
 
                 TempData["Success"] = "Сеанс успішно додано!";
@@ -260,7 +260,7 @@ namespace _CinemaBooking.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = $"Сталася помилка: {ex.Message}";
-                var halls = db.Halls.ToList();
+                var halls = db.Hall.ToList();
                 model.Halls = new SelectList(halls, "IdHall", "Name");
                 return View(model);
             }
@@ -296,7 +296,7 @@ namespace _CinemaBooking.Controllers
             {
                 return RedirectToAction("Login", "Cabinet");
             }
-            var admins = db.Admins.Select(a => new AdminViewModel
+            var admins = db.Admin.Select(a => new AdminViewModel
             {
                 IdAdmin = a.IdAdmin,
                 Name = a.Name,

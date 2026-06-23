@@ -18,8 +18,8 @@ namespace _CinemaBooking.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var sessions = await (from s in db.Sessions
-                                  join f in db.Films on s.IdFilm equals f.IdFilm
+            var sessions = await (from s in db.Session
+                                  join f in db.Film on s.IdFilm equals f.IdFilm
                                   orderby s.Date_session, s.StartTime  
                                   select new
                                   {
@@ -74,8 +74,9 @@ namespace _CinemaBooking.Controllers
         }
         public async Task<ActionResult> Details(int id)
         {
-            var film = await db.Films
+            var film = await db.Film
                 .Where(f => f.IdFilm == id)
+                .Include(f => f.Session)
                 .Select(f => new FilmScheduleViewModel
                 {
                     FilmId = f.IdFilm,
@@ -85,7 +86,7 @@ namespace _CinemaBooking.Controllers
                     Genre = f.Genre,
                     Rating = f.Rating,
                     ImageUrl = f.ImageUrl,
-                    Sessions = db.Sessions
+                    Sessions = db.Session
                         .Where(s => s.IdFilm == f.IdFilm)
                         .Select(s => new SessionViewModel
                         {
@@ -116,7 +117,7 @@ namespace _CinemaBooking.Controllers
 
             try
             {
-                var bookings = db.Bookings
+                var bookings = db.Booking
                        .Where(b => b.IdUser == userId)
                        .Select(b => new BookingViewModel
                        {
@@ -144,7 +145,7 @@ namespace _CinemaBooking.Controllers
         {
             try
             {
-                var session = db.Sessions
+                var session = db.Session
                         .Include(s => s.Film)  
                         .Include(s => s.Hall)  
                         .FirstOrDefault(s => s.IdSession == sessionId);
@@ -154,11 +155,11 @@ namespace _CinemaBooking.Controllers
                     return HttpNotFound(); 
                 }
 
-                var allSeats = db.Seats
+                var allSeats = db.Seat
                     .Where(s => s.IdHall == session.IdHall)
                     .ToList();
 
-                var bookedSeats = db.Bookings
+                var bookedSeats = db.Booking
                     .Where(b => b.IdSession == sessionId)
                     .Select(b => b.IdSeat)
                     .Distinct()
@@ -183,7 +184,7 @@ namespace _CinemaBooking.Controllers
                     FilmTitle = session.Film.Title,
                     HallName = session.Hall.Name,
                     DateSession = session.Date_session,
-                    StartTime = session.StartTime
+                    StartTime = session.StartTime.TimeOfDay
                 };
 
                 return View(viewModel);
@@ -210,14 +211,14 @@ namespace _CinemaBooking.Controllers
                     return RedirectToAction("SelectSeats", new { sessionId = sessionId });
                 }
 
-                var session = db.Sessions.FirstOrDefault(s => s.IdSession == sessionId);
+                var session = db.Session.FirstOrDefault(s => s.IdSession == sessionId);
                 if (session == null)
                 {
                     TempData["ErrorMessage"] = "Сеанс не знайдено.";
                     return RedirectToAction("Index");
                 }
 
-                var bookedSeats = db.Bookings
+                var bookedSeats = db.Booking
                                     .Where(b => b.IdSession == sessionId && selectedSeats.Contains(b.IdSeat))
                                     .Select(b => b.IdSeat)
                                     .ToList();
@@ -232,14 +233,14 @@ namespace _CinemaBooking.Controllers
 
                 foreach (var seatId in selectedSeats)
                 {
-                    var seat = db.Seats.FirstOrDefault(s => s.IdSeat == seatId);
+                    var seat = db.Seat.FirstOrDefault(s => s.IdSeat == seatId);
                     if (seat == null)
                     {
                         TempData["ErrorMessage"] = $"Місце з ID {seatId} не знайдено.";
                         return RedirectToAction("SelectSeats", new { sessionId = sessionId });
                     }
 
-                    var isSeatBooked = db.Bookings.Any(b => b.IdSeat == seatId && b.IdSession == sessionId);
+                    var isSeatBooked = db.Booking.Any(b => b.IdSeat == seatId && b.IdSession == sessionId);
                     if (isSeatBooked)
                     {
                         TempData["ErrorMessage"] = $"Місце {seatId} вже заброньоване.";
@@ -254,7 +255,7 @@ namespace _CinemaBooking.Controllers
                         Status_book = "Заброньовано",
                         CreatedAt = DateTime.Now
                     };
-                    db.Bookings.Add(booking);
+                    db.Booking.Add(booking);
                 }
 
                 db.SaveChanges();

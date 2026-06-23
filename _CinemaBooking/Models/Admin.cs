@@ -17,9 +17,9 @@ namespace _CinemaBooking.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Admin()
         {
-            this.Films = new HashSet<Film>();
-            this.Halls = new HashSet<Hall>();
-            this.Sessions = new HashSet<Session>();
+            this.Film = new HashSet<Film>();
+            this.Hall = new HashSet<Hall>();
+            this.Session = new HashSet<Session>();
         }
     
         public int IdAdmin { get; set; }
@@ -29,10 +29,10 @@ namespace _CinemaBooking.Models
         public string Role_admin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Film> Films { get; set; }
+        public virtual ICollection<Film> Film { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Hall> Halls { get; set; }
+        public virtual ICollection<Hall> Hall { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Session> Sessions { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

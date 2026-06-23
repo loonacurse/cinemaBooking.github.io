@@ -17,7 +17,7 @@ namespace _CinemaBooking.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User_cinema()
         {
-            this.Bookings = new HashSet<Booking>();
+            this.Booking = new HashSet<Booking>();
         }
     
         public int IdUser { get; set; }
@@ -26,6 +26,6 @@ namespace _CinemaBooking.Models
         public string Password_user { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

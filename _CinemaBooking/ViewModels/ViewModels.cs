@@ -55,8 +55,8 @@ namespace _CinemaBooking.ViewModels
     public class SessionViewModel
     {
         public int SessionId { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public DateTime Date { get; set; }
 
         [Display(Name = "Назва залу")]
@@ -90,7 +90,7 @@ namespace _CinemaBooking.ViewModels
         public int IdBooking { get; set; }
         public string FilmTitle { get; set; }
         public string HallName { get; set; }
-        public TimeSpan StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public DateTime DateSession { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -117,19 +117,6 @@ namespace _CinemaBooking.ViewModels
         public List<int> BookedSeats { get; set; }
 
     }
-
-    public class Films
-    {
-        public int IdFilm { get; set; }
-        public string Title { get; set; }
-        public string Description_film { get; set; }
-        public System.TimeSpan Duration { get; set; }
-        public string Genre { get; set; }
-        [Range(0, 10, ErrorMessage = "Рейтинг має бути від 0 до 10.")]
-        public Nullable<decimal> Rating { get; set; }
-        public int IdAdmin { get; set; }
-        public string ImageUrl { get; set; }
-    }
     public class AddFilmViewModel
     {
         public string Title { get; set; }
@@ -146,43 +133,5 @@ namespace _CinemaBooking.ViewModels
         public List<Hall> AvailableHalls { get; set; } = new List<Hall>();
         public List<Hall> HallList { get; set; }
         public List<SessionViewModel> Sessions { get; set; } = new List<SessionViewModel>();
-    }
-    public class Halls
-    {
-        public int IdHall { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class Admin
-    {
-        public int IdAdmin { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password_admin { get; set; }
-        public string Role_admin { get; set; }
-    }
-
-    public class UserCinema
-    {
-        public int IdUser { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password_user { get; set; }
-    }
-    public class Sessions
-    {
-        public int IdSession { get; set; }
-        public DateTime DateSession { get; set; }
-        public TimeSpan StartTime { get; set; }
-
-        public int IdFilm { get; set; }
-
-        [ForeignKey("IdFilm")]
-        public virtual Film Films { get; set; }
-
-        public int IdHall { get; set; }
-
-        [ForeignKey("IdHall")]
-        public virtual Hall Hall { get; set; }
     }
 }

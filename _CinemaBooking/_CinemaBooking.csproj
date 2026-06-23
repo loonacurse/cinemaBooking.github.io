@@ -250,40 +250,40 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Booking.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CinemaBookingModel.Context.cs">
+    <Compile Include="Models\cinemaBookingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CinemaBookingModel.Context.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CinemaBookingModel.cs">
+    <Compile Include="Models\cinemaBookingModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CinemaBookingModel.Designer.cs">
+    <Compile Include="Models\cinemaBookingModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CinemaBookingModel.edmx</DependentUpon>
+      <DependentUpon>cinemaBookingModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Film.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hall.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Seat.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Session.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User_cinema.cs">
-      <DependentUpon>CinemaBookingModel.tt</DependentUpon>
+      <DependentUpon>cinemaBookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModels.cs" />
@@ -291,15 +291,15 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\CinemaBookingModel.Context.tt">
+    <Content Include="Models\cinemaBookingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CinemaBookingModel.edmx</DependentUpon>
-      <LastGenOutput>CinemaBookingModel.Context.cs</LastGenOutput>
+      <DependentUpon>cinemaBookingModel.edmx</DependentUpon>
+      <LastGenOutput>cinemaBookingModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CinemaBookingModel.tt">
+    <Content Include="Models\cinemaBookingModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CinemaBookingModel.edmx</DependentUpon>
-      <LastGenOutput>CinemaBookingModel.cs</LastGenOutput>
+      <DependentUpon>cinemaBookingModel.edmx</DependentUpon>
+      <LastGenOutput>cinemaBookingModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -307,12 +307,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\CinemaBookingModel.edmx">
+    <EntityDeploy Include="Models\cinemaBookingModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CinemaBookingModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>cinemaBookingModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CinemaBookingModel.edmx.diagram">
-      <DependentUpon>CinemaBookingModel.edmx</DependentUpon>
+    <Content Include="Models\cinemaBookingModel.edmx.diagram">
+      <DependentUpon>cinemaBookingModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

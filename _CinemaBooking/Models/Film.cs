@@ -11,14 +11,13 @@ namespace _CinemaBooking.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Film
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Film()
         {
-            this.Sessions = new HashSet<Session>();
+            this.Session = new HashSet<Session>();
         }
     
         public int IdFilm { get; set; }
@@ -26,13 +25,12 @@ namespace _CinemaBooking.Models
         public string Description_film { get; set; }
         public System.TimeSpan Duration { get; set; }
         public string Genre { get; set; }
-        [Range(0, 10, ErrorMessage = "–ейтинг маЇ бути в≥д 0 до 10.")]
         public Nullable<decimal> Rating { get; set; }
         public int IdAdmin { get; set; }
         public string ImageUrl { get; set; }
     
         public virtual Admin Admin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Session> Sessions { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

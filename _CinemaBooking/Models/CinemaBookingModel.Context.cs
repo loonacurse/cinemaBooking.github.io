@@ -25,12 +25,12 @@ namespace _CinemaBooking.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Admin> Admins { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
-        public virtual DbSet<Film> Films { get; set; }
-        public virtual DbSet<Hall> Halls { get; set; }
-        public virtual DbSet<Seat> Seats { get; set; }
-        public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Booking> Booking { get; set; }
+        public virtual DbSet<Film> Film { get; set; }
+        public virtual DbSet<Hall> Hall { get; set; }
+        public virtual DbSet<Seat> Seat { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<User_cinema> User_cinema { get; set; }
     }
 }

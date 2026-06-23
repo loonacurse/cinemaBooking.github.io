@@ -47,7 +47,7 @@
                     <p><strong>Рейтинг:</strong> <span class="film-text">@film.Rating</span></p>
                     <h4>Сеанси:</h4>
                     <ul>
-                        @foreach (var session in film.Sessions)
+                        @foreach (var session in film.Session)
                         {
                             <li>
                                 <p>Дата: @session.Date_session.ToShortDateString(), Час: @session.StartTime - @session.EndTime</p>
