@@ -87,6 +87,7 @@ namespace _CinemaBooking.ViewModels
 
     public class BookingViewModel
     {
+
         public int IdBooking { get; set; }
         public string FilmTitle { get; set; }
         public string HallName { get; set; }

@@ -109,6 +109,7 @@ namespace _CinemaBooking.Controllers
         public ActionResult Bookings()
         {
             if (Session["UserId"] == null)
+
             {
                 return RedirectToAction("Login", "Cabinet");
             }
